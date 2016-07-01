@@ -5,6 +5,8 @@
 #include <cstring>
 #include <stdio.h>
 #include "logs.cc"
+#include "urls.cc"
+#include "defs.h"
 
 class HttpServer
 {
@@ -12,7 +14,9 @@ class HttpServer
 		HttpServer();
 		void serve();
 		~HttpServer();
+		void registerApp(applicationHook);
 		static logger * baseLogger;
+		static route defz;
 	private:
 		struct MHD_Daemon * mhdDaemon;
 		static int clbHandle (void *cls, struct MHD_Connection *con,

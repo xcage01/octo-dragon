@@ -1,6 +1,5 @@
 #include "server.h"
 
-
 HttpServer::HttpServer()
 {
 	baseLogger -> commit("Starting base http server");
@@ -21,12 +20,28 @@ void HttpServer::serve()
 	delete this;
 }
 
+
+void HttpServer::registerApp(applicationHook hook)
+{
+
+}
+
+
 int HttpServer::clbHandle (void *cls, struct MHD_Connection *con,
 			const char *url, const char *method,
 			const char *version, const char *upload_data,
 			size_t *upload_data_size, void **con_cls)
 {
-  const char *page = "<html><body>Hello, browser!</body></html>";
+	request * curRequest = new request;
+	curRequest -> connId = con;
+	curRequest -> url = url;
+	curRequest -> method = method;
+	curRequest -> version = version;
+	curRequest -> baseLogger = baseLogger;
+
+	curRequest = HttpServer::defz(curRequest);
+
+  const char *page = curRequest -> resp;
   struct MHD_Response *response;
   int ret;
   
@@ -39,3 +54,4 @@ int HttpServer::clbHandle (void *cls, struct MHD_Connection *con,
 }
 
 logger * HttpServer::baseLogger = new logger();
+route HttpServer::defz;
