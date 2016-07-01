@@ -1,15 +1,15 @@
 #ifndef LIB_URLS
 #define LIB_URLS
 
-#include "defs.h"
 
 class url
 {
 	public:
-		url();
+		url(const char *,route);
 		~url();
-	private:
 		const char * regexUrl;
+		route endpointHandle;
+	private:
 
 };
 

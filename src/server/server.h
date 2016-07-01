@@ -4,9 +4,20 @@
 #include <microhttpd.h>
 #include <cstring>
 #include <stdio.h>
+#include <list>
+#include <regex>
 #include "logs.cc"
-#include "urls.cc"
 #include "defs.h"
+#include "urls.cc"
+
+struct appMeta
+{
+	const char * appName;
+	std::list<url *> urls;
+};
+
+
+typedef appMeta * (*applicationInit)(void);
 
 class HttpServer
 {
@@ -14,9 +25,10 @@ class HttpServer
 		HttpServer();
 		void serve();
 		~HttpServer();
-		void registerApp(applicationHook);
+		void registerApp(applicationInit);
 		static logger * baseLogger;
 		static route defz;
+		static std::list<url *> urls;
 	private:
 		struct MHD_Daemon * mhdDaemon;
 		static int clbHandle (void *cls, struct MHD_Connection *con,

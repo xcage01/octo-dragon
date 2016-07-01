@@ -21,9 +21,14 @@ void HttpServer::serve()
 }
 
 
-void HttpServer::registerApp(applicationHook hook)
+void HttpServer::registerApp(applicationInit hook)
 {
-
+	appMeta * appData = hook();
+	char str[80];
+	strcpy (str,"Loading module ");
+	strcat (str,appData->appName);
+	baseLogger -> commit(str);
+	HttpServer::urls = appData -> urls;
 }
 
 
@@ -39,7 +44,19 @@ int HttpServer::clbHandle (void *cls, struct MHD_Connection *con,
 	curRequest -> version = version;
 	curRequest -> baseLogger = baseLogger;
 
-	curRequest = HttpServer::defz(curRequest);
+
+	bool endpointFound = false;
+	for (auto & it: HttpServer::urls) {
+		if (std::regex_match (url, std::regex(it->regexUrl) ))
+		{
+			endpointFound = true;
+			curRequest = it -> endpointHandle(curRequest);
+		}
+	}
+
+	if (!endpointFound)
+		curRequest = HttpServer::defz(curRequest);
+
 
   const char *page = curRequest -> resp;
   struct MHD_Response *response;
@@ -55,3 +72,4 @@ int HttpServer::clbHandle (void *cls, struct MHD_Connection *con,
 
 logger * HttpServer::baseLogger = new logger();
 route HttpServer::defz;
+std::list<url *> HttpServer::urls;

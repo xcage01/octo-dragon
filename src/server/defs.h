@@ -17,9 +17,8 @@ struct request
 	int respStatus;
 };
 
-typedef request * (*route)(request *);
 
-typedef void (*applicationHook)(void);
+typedef request * (*route)(request *);
 /*Macro defs come here*/
 
 #define HttpResponse(st) \
