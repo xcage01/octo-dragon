@@ -14,7 +14,7 @@ struct request
 
 	/*Response codes*/
 	const char * resp;
-	int respStatus;
+	int respCode = 200;
 };
 
 

@@ -13,7 +13,7 @@ namespace testApp
     HttpResponse("Testing if macros are good")
   }
   
-  request * dummy(request * req)
+  request * notFound(request * req)
   {
     HttpResponse(req->url)
   }
@@ -38,6 +38,6 @@ int main()
 {
   HttpServer * baseServer = new HttpServer();
   baseServer -> registerApp(testApp::init);
-  baseServer -> notFound = testApp::dummy;
+  baseServer -> notFound = testApp::notFound;
   baseServer -> serve();
 }

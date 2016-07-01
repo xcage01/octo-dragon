@@ -55,19 +55,22 @@ int HttpServer::clbHandle (void *cls, struct MHD_Connection *con,
 	}
 
 	if (!endpointFound)
+	{
+		curRequest -> respCode = 404;
 		curRequest = HttpServer::notFound(curRequest);
+	}
 
 
-  const char *page = curRequest -> resp;
-  struct MHD_Response *response;
-  int ret;
-  
-  response =
-    MHD_create_response_from_buffer (strlen (page), (void *) page, 
-				     MHD_RESPMEM_PERSISTENT);
-  ret = MHD_queue_response (con, MHD_HTTP_OK, response);
-  MHD_destroy_response (response);
-  return ret;
+	const char *page = curRequest -> resp;
+	struct MHD_Response *response;
+	int ret;
+	response =
+	MHD_create_response_from_buffer (strlen (page), (void *) page, 
+		MHD_RESPMEM_PERSISTENT);
+	MHD_add_response_header (response, "Server", "Octo-dragon");
+	ret = MHD_queue_response (con, curRequest -> respCode, response);
+	MHD_destroy_response (response);
+	return ret;
 }
 
 logger * HttpServer::baseLogger = new logger();
