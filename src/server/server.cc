@@ -55,7 +55,7 @@ int HttpServer::clbHandle (void *cls, struct MHD_Connection *con,
 	}
 
 	if (!endpointFound)
-		curRequest = HttpServer::defz(curRequest);
+		curRequest = HttpServer::notFound(curRequest);
 
 
   const char *page = curRequest -> resp;
@@ -71,5 +71,5 @@ int HttpServer::clbHandle (void *cls, struct MHD_Connection *con,
 }
 
 logger * HttpServer::baseLogger = new logger();
-route HttpServer::defz;
+route HttpServer::notFound;
 std::list<url *> HttpServer::urls;

@@ -15,7 +15,7 @@ namespace testApp
   
   request * dummy(request * req)
   {
-    HttpResponse("dummy no regex")
+    HttpResponse(req->url)
   }
 
   appMeta * init()
@@ -38,6 +38,6 @@ int main()
 {
   HttpServer * baseServer = new HttpServer();
   baseServer -> registerApp(testApp::init);
-  baseServer -> defz = testApp::dummy;
+  baseServer -> notFound = testApp::dummy;
   baseServer -> serve();
 }

@@ -27,7 +27,7 @@ class HttpServer
 		~HttpServer();
 		void registerApp(applicationInit);
 		static logger * baseLogger;
-		static route defz;
+		static route notFound;
 		static std::list<url *> urls;
 	private:
 		struct MHD_Daemon * mhdDaemon;
