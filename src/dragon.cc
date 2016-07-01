@@ -1,4 +1,7 @@
-int main(int argc, char const *argv[])
+#include "server/server.cc"
+
+int main()
 {
-	return 0;
+  HttpServer * baseServer = new HttpServer();
+  baseServer -> serve();
 }
