@@ -21,7 +21,7 @@ void HttpServer::serve()
 }
 
 
-void HttpServer::registerApp(applicationInit hook)
+void HttpServer::registerApp(const char * appBaseUrl,applicationInit hook)
 {
 	appMeta * appData = hook();
 	char str[80];
@@ -29,6 +29,10 @@ void HttpServer::registerApp(applicationInit hook)
 	strcat (str,appData->appName);
 	baseLogger -> commit(str);
 	HttpServer::urls = appData -> urls;
+	appConf * conf = new appConf;
+	conf -> meta = appData;
+	conf -> baseUrl = appBaseUrl;
+	activeApps.push_back(conf);
 }
 
 
@@ -46,11 +50,19 @@ int HttpServer::clbHandle (void *cls, struct MHD_Connection *con,
 
 
 	bool endpointFound = false;
-	for (auto & it: HttpServer::urls) {
-		if (std::regex_match (url, std::regex(it->regexUrl) ))
-		{
-			endpointFound = true;
-			curRequest = it -> endpointHandle(curRequest);
+	for (auto &app : HttpServer::activeApps)
+	{
+		const char * base = app->baseUrl;
+		for (auto & it: app->meta->urls) {
+			char* regexEndpoint = (char *)malloc(strlen(base)+strlen(it->regexUrl)+1);
+			strcpy(regexEndpoint, base);
+  			strcat(regexEndpoint, it->regexUrl);
+			if (std::regex_match (url, std::regex(regexEndpoint) ))
+			{
+				endpointFound = true;
+				curRequest = it -> endpointHandle(curRequest);
+			}
+			free(regexEndpoint);
 		}
 	}
 
@@ -76,3 +88,4 @@ int HttpServer::clbHandle (void *cls, struct MHD_Connection *con,
 logger * HttpServer::baseLogger = new logger();
 route HttpServer::notFound;
 std::list<url *> HttpServer::urls;
+std::list<appConf *> HttpServer::activeApps;

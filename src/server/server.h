@@ -16,6 +16,11 @@ struct appMeta
 	std::list<url *> urls;
 };
 
+struct appConf
+{
+	appMeta * meta;
+	const char * baseUrl;
+};
 
 typedef appMeta * (*applicationInit)(void);
 
@@ -25,10 +30,11 @@ class HttpServer
 		HttpServer();
 		void serve();
 		~HttpServer();
-		void registerApp(applicationInit);
+		void registerApp(const char *,applicationInit);
 		static logger * baseLogger;
 		static route notFound;
 		static std::list<url *> urls;
+		static std::list<appConf *> activeApps;
 	private:
 		struct MHD_Daemon * mhdDaemon;
 		static int clbHandle (void *cls, struct MHD_Connection *con,

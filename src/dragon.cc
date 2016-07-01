@@ -12,6 +12,11 @@ namespace testApp
   {
     HttpResponse("Testing if macros are good")
   }
+
+  request * hello2(request * req)
+  {
+    HttpResponse("testing another url")
+  }
   
   request * notFound(request * req)
   {
@@ -21,6 +26,7 @@ namespace testApp
   appMeta * init()
   {
     urlPattern.push_back(new url("/",hello));
+    urlPattern.push_back(new url("/h",hello2));
     appMeta * application = new appMeta;
     application -> appName = appName;
     application -> urls = urlPattern;
@@ -37,7 +43,7 @@ namespace testApp
 int main()
 {
   HttpServer * baseServer = new HttpServer();
-  baseServer -> registerApp(testApp::init);
+  baseServer -> registerApp("/testApp",testApp::init);
   baseServer -> notFound = testApp::notFound;
   baseServer -> serve();
 }
