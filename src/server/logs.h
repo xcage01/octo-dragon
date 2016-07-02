@@ -3,9 +3,9 @@
 
 class logger
 {
-	public:
-		logger();
-		void commit(const char *);
-		~logger();
+        public:
+                logger();
+                void commit(const char*);
+                ~logger();
 };
 #endif

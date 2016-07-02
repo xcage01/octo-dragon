@@ -10,37 +10,34 @@
 #include "defs.h"
 #include "urls.cc"
 
-struct appMeta
-{
-	const char * appName;
-	std::list<url *> urls;
+struct appMeta {
+        const char* appName;
+        std::list<url*> urls;
 };
 
-struct appConf
-{
-	appMeta * meta;
-	const char * baseUrl;
+struct appConf {
+        appMeta* meta;
+        const char* baseUrl;
 };
 
-typedef appMeta * (*applicationInit)(void);
+typedef appMeta* (*applicationInit)(void);
 
-class HttpServer
-{
-	public:
-		HttpServer();
-		void serve();
-		~HttpServer();
-		void registerApp(const char *,applicationInit);
-		static logger * baseLogger;
-		static route notFound;
-		static std::list<url *> urls;
-		static std::list<appConf *> activeApps;
-	private:
-		struct MHD_Daemon * mhdDaemon;
-		static int clbHandle (void *cls, struct MHD_Connection *con,
-			const char *url, const char *method,
-			const char *version, const char *upload_data,
-			size_t *upload_data_size, void **con_cls);
+class HttpServer {
+        public:
+                HttpServer();
+                void serve();
+                ~HttpServer();
+                void registerApp(const char*,applicationInit);
+                static logger* baseLogger;
+                static route notFound;
+                static std::list<url*> urls;
+                static std::list<appConf*> activeApps;
+        private:
+                struct MHD_Daemon* mhdDaemon;
+                static int clbHandle(void* cls, struct MHD_Connection* con,
+                        const char* url, const char* method,
+                        const char* version, const char* upload_data,
+                        size_t* upload_data_size, void** con_cls);
 };
 
 #endif
