@@ -1,17 +1,18 @@
 #include "server.h"
 
-HttpServer::HttpServer()
+HttpServer::HttpServer(loggingHook logger)
 {
-        baseLogger->commit("Starting base http server");
+        HttpServer::log = logger;
         this->mhdDaemon = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY, 
                 8888, NULL, NULL,
                 &this->clbHandle, NULL, MHD_OPTION_END);
+        HttpServer:log("Http server started");
 }
 
 HttpServer::~HttpServer()
 {
-        baseLogger->commit("Terminating base http server");
         MHD_stop_daemon(this->mhdDaemon);
+        HttpServer::log("Http server terminated");
 }
 
 void HttpServer::serve()
@@ -24,10 +25,9 @@ void HttpServer::serve()
 void HttpServer::registerApp(const char * appBaseUrl,applicationInit hook)
 {
         appMeta* appData = hook();
-        char str[80];
-        strcpy (str,"Loading module ");
-        strcat (str,appData->appName);
-        baseLogger->commit(str);
+        std::string modLoadMsg = "Loading module ";
+        modLoadMsg.append(appData->appName);
+        HttpServer::log(modLoadMsg);
         HttpServer::urls = appData->urls;
         appConf* conf = new appConf;
         conf->meta = appData;
@@ -46,8 +46,7 @@ int HttpServer::clbHandle (void* cls, struct MHD_Connection* con,
         curRequest->url = url;
         curRequest->method = method;
         curRequest->version = version;
-        curRequest->baseLogger = baseLogger;
-
+        curRequest->log = HttpServer::log;
 
         bool endpointFound = false;
         for (auto &app : HttpServer::activeApps) {
@@ -82,7 +81,7 @@ int HttpServer::clbHandle (void* cls, struct MHD_Connection* con,
         return ret;
 }
 
-logger* HttpServer::baseLogger = new logger();
 route HttpServer::notFound;
 std::list<url*> HttpServer::urls;
 std::list<appConf*> HttpServer::activeApps;
+loggingHook HttpServer::log;

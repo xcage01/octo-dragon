@@ -1,5 +1,8 @@
 cmake_minimum_required (VERSION 2.6)
 add_definitions(-std=c++11)
 project (octo-dragon)
+
+include_directories(src/logger)
+
 add_executable(dragon src/dragon.cc)
 target_link_libraries( dragon microhttpd )

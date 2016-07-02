@@ -1,5 +1,5 @@
 #include "server/server.cc"
-
+#include <logger.h>
 
 namespace testApp
 {
@@ -42,8 +42,9 @@ namespace testApp
 
 int main()
 {
-        HttpServer * baseServer = new HttpServer();
+        HttpServer * baseServer = new HttpServer(logging);
         baseServer -> registerApp("/testApp",testApp::init);
         baseServer -> notFound = testApp::notFound;
         baseServer -> serve();
+        return 0;
 }

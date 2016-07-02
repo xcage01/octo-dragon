@@ -1,0 +1,41 @@
+2016-07-02 17:18:26,941 INFO  [default] Testing base logger
+2016-07-02 17:21:30,470 INFO  [default] Testing base logger
+2016-07-02 17:21:39,761 INFO  [default] Testing base logger
+2016-07-02 17:21:39,761 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGSEGV] signal
+2016-07-02 17:21:39,761 WARN  [default] Aborting application. Reason: Fatal log at [/home/xander/Public/octo-dragon/src/logger/easylogging++.h:5583]
+2016-07-02 17:22:13,444 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGSEGV] signal
+2016-07-02 17:22:13,444 WARN  [default] Aborting application. Reason: Fatal log at [/home/xander/Public/octo-dragon/src/logger/easylogging++.h:5583]
+2016-07-02 17:22:33,805 INFO  [default] Testing base logger
+2016-07-02 17:22:33,805 INFO  [default] Testing base logger
+2016-07-02 17:22:33,805 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGSEGV] signal
+2016-07-02 17:22:33,805 WARN  [default] Aborting application. Reason: Fatal log at [/home/xander/Public/octo-dragon/src/logger/easylogging++.h:5583]
+2016-07-02 17:23:23,765 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGSEGV] signal
+2016-07-02 17:23:23,765 WARN  [default] Aborting application. Reason: Fatal log at [/home/xander/Public/octo-dragon/src/logger/easylogging++.h:5583]
+2016-07-02 17:24:04,612 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGSEGV] signal
+2016-07-02 17:24:04,612 WARN  [default] Aborting application. Reason: Fatal log at [/home/xander/Public/octo-dragon/src/logger/easylogging++.h:5583]
+2016-07-02 17:24:41,653 INFO  [default] skdjfhskdjhfkjshdf
+2016-07-02 17:25:30,801 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGSEGV] signal
+2016-07-02 17:25:30,801 WARN  [default] Aborting application. Reason: Fatal log at [/home/xander/Public/octo-dragon/src/logger/easylogging++.h:5583]
+2016-07-02 17:25:48,492 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGSEGV] signal
+2016-07-02 17:25:48,492 WARN  [default] Aborting application. Reason: Fatal log at [/home/xander/Public/octo-dragon/src/logger/easylogging++.h:5583]
+2016-07-02 17:26:44,715 INFO  [default] Testing
+2016-07-02 17:27:57,929 INFO  [default] Testing
+2016-07-02 17:28:48,931 INFO  [default] Testing
+2016-07-02 17:31:48,943 INFO  [default] Http server started
+2016-07-02 17:31:48,943 INFO  [default] Loading module testApp
+2016-07-02 17:31:52,006 INFO  [default] Http server terminated
+2016-07-02 17:32:11,115 INFO  [default] Http server started
+2016-07-02 17:32:11,115 INFO  [default] Loading module testApp
+2016-07-02 17:32:18,771 INFO  [default] Http server terminated
+2016-07-02 17:32:40,778 INFO  [default] Http server started
+2016-07-02 17:32:40,778 INFO  [default] Loading module testApp
+2016-07-02 17:32:41,339 INFO  [default] Http server terminated
+2016-07-02 17:33:17,647 INFO  [default] Http server started
+2016-07-02 17:33:17,647 INFO  [default] Loading module testApp
+2016-07-02 17:33:37,995 INFO  [default] Http server terminated
+2016-07-02 17:33:40,833 INFO  [default] Http server started
+2016-07-02 17:33:40,833 INFO  [default] Loading module testApp
+2016-07-02 17:33:54,230 INFO  [default] Http server terminated
+2016-07-02 17:34:10,575 INFO  [default] Http server started
+2016-07-02 17:34:10,575 INFO  [default] Loading module testApp
+2016-07-02 17:34:12,198 INFO  [default] Http server terminated

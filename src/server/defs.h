@@ -3,13 +3,14 @@
 
 #include <microhttpd.h>
 
+typedef void (*loggingHook)(std::string);
 
 struct request {
         struct MHD_Connection* connId;
         const char* url;
         const char* method;
         const char* version;
-        logger* baseLogger;
+        loggingHook log;
 
         const char* resp;
         int respCode = 200;

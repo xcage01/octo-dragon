@@ -6,7 +6,6 @@
 #include <stdio.h>
 #include <list>
 #include <regex>
-#include "logs.cc"
 #include "defs.h"
 #include "urls.cc"
 
@@ -22,17 +21,18 @@ struct appConf {
 
 typedef appMeta* (*applicationInit)(void);
 
+
 class HttpServer {
         public:
-                HttpServer();
+                HttpServer(loggingHook);
                 void serve();
                 ~HttpServer();
                 void registerApp(const char*,applicationInit);
-                static logger* baseLogger;
                 static route notFound;
                 static std::list<url*> urls;
                 static std::list<appConf*> activeApps;
         private:
+                static loggingHook log;
                 struct MHD_Daemon* mhdDaemon;
                 static int clbHandle(void* cls, struct MHD_Connection* con,
                         const char* url, const char* method,
