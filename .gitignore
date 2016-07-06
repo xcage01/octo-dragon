@@ -6,3 +6,5 @@ dragon
 logs
 Doxyfile
 docs
+app
+*.a
