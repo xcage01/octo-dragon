@@ -1,87 +1,52 @@
-#include "server.h"
+#include <server.h>
 
-HttpServer::HttpServer(loggingHook logger)
+server::server(int port)
 {
-        HttpServer::log = logger;
-        this->mhdDaemon = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY, 
-                8888, NULL, NULL,
+        this->port = port;
+        this->daemon = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY, 
+                this->port, NULL, NULL,
                 &this->clbHandle, NULL, MHD_OPTION_END);
-        HttpServer:log("Http server started");
 }
 
-HttpServer::~HttpServer()
+server::~server()
 {
-        MHD_stop_daemon(this->mhdDaemon);
-        HttpServer::log("Http server terminated");
+        MHD_stop_daemon(this->daemon);
 }
 
-void HttpServer::serve()
+void server::setHandle(requestHandle handle)
 {
-        getchar();
-        delete this;
+        server::handle = handle;
 }
 
-
-void HttpServer::registerApp(const char * appBaseUrl,applicationInit hook)
+int server::getPort()
 {
-        appMeta* appData = hook();
-        std::string modLoadMsg = "Loading module ";
-        modLoadMsg.append(appData->appName);
-        HttpServer::log(modLoadMsg);
-        HttpServer::urls = appData->urls;
-        appConf* conf = new appConf;
-        conf->meta = appData;
-        conf->baseUrl = appBaseUrl;
-        activeApps.push_back(conf);
+        return this->port;
 }
 
-
-int HttpServer::clbHandle (void* cls, struct MHD_Connection* con,
+int server::clbHandle (void* cls, struct MHD_Connection* con,
         const char* url, const char* method,
         const char* version, const char* upload_data,
         size_t* upload_data_size, void** con_cls)
 {
-        request* curRequest = new request;
-        curRequest->connId = con;
-        curRequest->url = url;
-        curRequest->method = method;
-        curRequest->version = version;
-        curRequest->log = HttpServer::log;
+        httpRequest* request = new httpRequest;
+        request->url = url;
+        request->method = method;
+        request->version = version;
 
-        bool endpointFound = false;
-        for (auto &app : HttpServer::activeApps) {
-                const char* base = app->baseUrl;
-                for (auto& it: app->meta->urls) {
-                        char* regexEndpoint = (char*)malloc(strlen(base)+strlen(it->regexUrl)+1);
-                        strcpy(regexEndpoint, base);
-                        strcat(regexEndpoint, it->regexUrl);
-                        if (std::regex_match(url, std::regex(regexEndpoint))) {
-                               endpointFound = true;
-                               curRequest = it->endpointHandle(curRequest);
-                        }
-                        free(regexEndpoint);
-                }
-        }
+        server::handle(request);
 
-        if (!endpointFound) {
-                curRequest->respCode = 404;
-                curRequest = HttpServer::notFound(curRequest);
-        }
+        const char *page = request->response.resp;
 
-
-        const char* page = curRequest->resp;
         struct MHD_Response* response;
         int ret;
         response =
-        MHD_create_response_from_buffer(strlen(page), (void*) page, 
+        MHD_create_response_from_buffer(strlen(page), (void*) page,  
                 MHD_RESPMEM_PERSISTENT);
-        MHD_add_response_header(response, "Server", "Octo-dragon");
-        ret = MHD_queue_response(con, curRequest -> respCode, response);
+        MHD_add_response_header(response, "Server", "dragon");
+        ret = MHD_queue_response(con, request->response.respCode, response);
         MHD_destroy_response(response);
         return ret;
 }
 
-route HttpServer::notFound;
-std::list<url*> HttpServer::urls;
-std::list<appConf*> HttpServer::activeApps;
-loggingHook HttpServer::log;
+
+requestHandle server::handle;

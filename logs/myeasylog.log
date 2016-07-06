@@ -1,0 +1,12 @@
+2016-07-06 15:09:47,412 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGSEGV] signal
+2016-07-06 15:09:47,412 WARN  [default] Aborting application. Reason: Fatal log at [/home/xander/Public/octo-dragon/src/logger/easylogging++.h:5583]
+2016-07-06 15:15:12,771 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGSEGV] signal
+2016-07-06 15:15:12,771 WARN  [default] Aborting application. Reason: Fatal log at [/home/xander/Public/octo-dragon/src/logger/easylogging++.h:5583]
+2016-07-06 16:54:31,937 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGSEGV] signal
+2016-07-06 16:54:31,937 WARN  [default] Aborting application. Reason: Fatal log at [/home/xander/Public/octo-dragon/src/logger/easylogging++.h:5583]
+2016-07-06 16:56:19,771 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGSEGV] signal
+2016-07-06 16:56:19,771 WARN  [default] Aborting application. Reason: Fatal log at [/home/xander/Public/octo-dragon/src/logger/easylogging++.h:5583]
+2016-07-06 16:56:59,038 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGSEGV] signal
+2016-07-06 16:56:59,038 WARN  [default] Aborting application. Reason: Fatal log at [/home/xander/Public/octo-dragon/src/logger/easylogging++.h:5583]
+2016-07-06 16:57:20,325 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGSEGV] signal
+2016-07-06 16:57:20,326 WARN  [default] Aborting application. Reason: Fatal log at [/home/xander/Public/octo-dragon/src/logger/easylogging++.h:5583]

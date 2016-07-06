@@ -1,4 +1,3 @@
-#include "server/server.cc"
 #include <logger.h>
 #include <dragon.h>
 

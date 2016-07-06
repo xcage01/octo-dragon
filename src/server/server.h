@@ -1,56 +1,39 @@
-#ifndef LIB_SERVER
-#define LIB_SERVER
+#ifndef SERVER_CLASS
+#define SERVER_CLASS
 
 #include <microhttpd.h>
+#include <string>
 #include <cstring>
-#include <stdio.h>
-#include <list>
-#include <regex>
 
-typedef void (*loggingHook)(std::string);
-
-struct request {
-        struct MHD_Connection* connId;
-        const char* url;
-        const char* method;
-        const char* version;
-        loggingHook log;
-
-        const char* resp;
+struct httpResponse{
+        const char * resp = "Simply hello world";
         int respCode = 200;
 };
 
-
-typedef request* (*route)(request*);
-
-#include "urls.cc"
-
-struct appMeta {
-        const char* appName;
-        std::list<url*> urls;
+struct httpRequest{
+        httpResponse response;
+        std::string url;
+        std::string method;
+        std::string version;
+        void reply(const char * resp,int code)
+        {
+                response.resp = resp;
+                response.respCode = code;
+        }
 };
 
-struct appConf {
-        appMeta* meta;
-        const char* baseUrl;
-};
+typedef void (*requestHandle)(httpRequest*);
 
-typedef appMeta* (*applicationInit)(void);
-
-
-
-class HttpServer {
+class server{
         public:
-                HttpServer(loggingHook);
-                void serve();
-                ~HttpServer();
-                void registerApp(const char*,applicationInit);
-                static route notFound;
-                static std::list<url*> urls;
-                static std::list<appConf*> activeApps;
+                server(int);
+                ~server();
+                static void setHandle(requestHandle);
+                int getPort();
         private:
-                static loggingHook log;
-                struct MHD_Daemon* mhdDaemon;
+                int port;
+                struct MHD_Daemon* daemon;
+                static requestHandle handle;
                 static int clbHandle(void* cls, struct MHD_Connection* con,
                         const char* url, const char* method,
                         const char* version, const char* upload_data,

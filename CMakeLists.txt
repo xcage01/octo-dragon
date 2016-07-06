@@ -5,12 +5,17 @@ project (octo-dragon)
 include_directories(src/logger)
 include_directories(src/dragon)
 include_directories(src/server)
+include_directories(src/config)
+include_directories(src/router)
 
 add_library( dragon src/dragon/dragon.cc )
 add_library( server src/server/server.cc )
+add_library( config src/config/config.cc )
+add_library( router src/router/router.cc )
 
 add_executable(app src/app.cc)
 
 target_link_libraries( server microhttpd )
 target_link_libraries( dragon server )
+target_link_libraries( dragon router )
 target_link_libraries( app dragon )
