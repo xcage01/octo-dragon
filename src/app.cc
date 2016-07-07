@@ -10,7 +10,6 @@ namespace mod1
         {
                 request->reply("Simple hello in mod1",200);
         }
-
         appMeta * init()
         {
                 appMeta* meta = new appMeta;
@@ -21,7 +20,6 @@ namespace mod1
                 return meta;
         }
 }
-
 int main()
 {
         engine * d = new engine();
