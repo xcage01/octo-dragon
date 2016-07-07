@@ -26,10 +26,7 @@ int main()
 {
         engine * d = new engine();
         d->registerMod("/b",mod1::init);
-        // HttpServer * baseServer = new HttpServer(logging);
-        // baseServer -> registerApp("/testApp",testApp::init);
-        // baseServer -> notFound = testApp::notFound;
-        // baseServer -> serve();
+        d->run();
         return 0;
 }
 
