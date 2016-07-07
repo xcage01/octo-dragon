@@ -11,13 +11,15 @@ include_directories(src/middleware)
 
 add_library( dragon src/dragon/dragon.cc )
 add_library( server src/server/server.cc )
-add_library( config src/config/config.cc )
+add_library( dConfig src/config/config.cc )
 add_library( router src/router/router.cc )
 add_library( middleware src/middleware/middleware.cc )
 
 add_executable(app src/app.cc)
 
 target_link_libraries( server microhttpd )
+target_link_libraries( dConfig config )
+target_link_libraries( server dConfig )
 target_link_libraries( dragon server )
 target_link_libraries( dragon router )
 target_link_libraries( app dragon )

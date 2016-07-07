@@ -1,6 +1,7 @@
 #ifndef DRAGONX_LIB
 #define DRAGONX_LIB
 
+#include <config.h>
 #include <server.h>
 #include <router.h>
 
@@ -56,6 +57,7 @@ namespace dragon{
                         The actual instance of the http server
                         */
                         server* base;
+                        config * baseConfig;
         };
 };
 

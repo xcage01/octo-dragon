@@ -4,8 +4,16 @@ using namespace dragon;
 
 engine::engine()
 {
-        this->base = new server(9090);
-        this->base->setHandle(router::route);
+        this->baseConfig = new config("app.cfg");
+        configVal * port = this->baseConfig->getInt("port");
+        if(port->status)
+        {
+                this->base = new server(port->intVal);
+                this->base->setHandle(router::route);
+        }else
+        {
+                std::cout << "No port found in configuration"<<std::endl;
+        }
 }
 
 void engine::run()
