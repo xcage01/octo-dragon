@@ -66,6 +66,9 @@ int server::clbHandle (void* cls, struct MHD_Connection* con,
         // Iterate get params
         MHD_get_connection_values (con, MHD_GET_ARGUMENT_KIND, server::get_iterator,
                              request);
+        // Iterate header data
+        MHD_get_connection_values (con, MHD_HEADER_KIND, server::header_iterator,
+                             request);
 
         server::handle(request);
 
@@ -100,6 +103,14 @@ int server::get_iterator (void *cls, enum MHD_ValueKind kind,
 {
         httpRequest* request=(httpRequest*)cls;
         request->GET.content.insert(std::pair<std::string,std::string>(key,value));
+        return MHD_YES;
+}
+
+int server::header_iterator (void *cls, enum MHD_ValueKind kind,
+        const char *key,const char *value)
+{
+        httpRequest* request=(httpRequest*)cls;
+        request->HEADER.content.insert(std::pair<std::string,std::string>(key,value));
         return MHD_YES;
 }
 

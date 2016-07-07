@@ -33,6 +33,7 @@ struct httpRequest{
         std::string version;
         params GET;
         params POST;
+        params HEADER;
         void reply(const char * resp,int code)
         {
                 response.resp = resp;
@@ -66,6 +67,8 @@ class server{
                        const char *transfer_encoding,
                        const char *data, uint64_t off, size_t size);
                 static int get_iterator (void *cls, enum MHD_ValueKind kind,
+                        const char *key,const char *value);
+                static int header_iterator (void *cls, enum MHD_ValueKind kind,
                         const char *key,const char *value);
 };
 
