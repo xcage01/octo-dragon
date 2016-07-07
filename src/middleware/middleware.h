@@ -1,15 +1,17 @@
 #ifndef MIDDLEWARE_LIB
 #define MIDDLEWARE_LIB
 
-#include <list>
+#include <vector>
 #include <server.h>
+
+typedef void (*middlewareHandle)(httpRequest*,int);
 
 class middleware
 {
         public:
-                static void push(requestHandle);
+                static void push(middlewareHandle);
+                static middlewareHandle get(int);
                 static void handle(httpRequest*);
-        private:
-                static std::list<requestHandle> middlewareStack;
+                static std::vector<middlewareHandle> middlewareStack;
 };
 #endif

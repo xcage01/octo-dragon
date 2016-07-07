@@ -1,19 +1,20 @@
 #include <middleware.h>
 
-void middleware::push(requestHandle handle)
+void middleware::push(middlewareHandle handle)
 {
         middlewareStack.push_back(handle);
 }
 
-void middleware::handle(httpRequest* request)
+middlewareHandle get(int index)
 {
-        std::list<requestHandle>::const_iterator iterator;
-        for(iterator = middleware::middlewareStack.begin(); iterator != middleware::middlewareStack.end(); ++iterator)
-        {
-                requestHandle func;
-                func = *iterator;
-                func(request);
-        }
+        return middleware::middlewareStack.at(index);
 }
 
-std::list<requestHandle> middleware::middlewareStack;
+void middleware::handle(httpRequest* request)
+{
+        middlewareHandle func;
+        func = middleware::middlewareStack.at(0);
+        func(request,middleware::middlewareStack.size()-1);
+}
+
+std::vector<middlewareHandle> middleware::middlewareStack;

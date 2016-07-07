@@ -15,8 +15,9 @@ void router::add(std::string baseUri,url urlList)
         router::baseController.insert(std::pair<std::string,url>(baseUri,urlList));
 }
 
-void router::route(httpRequest* request)
+void router::route(httpRequest* request,int index)
 {
+        std::cout << index<<std::endl;
         bool found = false;
         for (const auto& appUrlConf:router::baseController )
         {
