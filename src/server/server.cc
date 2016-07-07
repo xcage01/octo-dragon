@@ -49,6 +49,7 @@ int server::clbHandle (void* cls, struct MHD_Connection* con,
                 return MHD_YES;
         }
 
+        // Iterate POST params
         if (0 == strcmp (method, MHD_HTTP_METHOD_POST))
         {
                 MHD_post_process (request->postProcessor,
@@ -62,6 +63,9 @@ int server::clbHandle (void* cls, struct MHD_Connection* con,
                 MHD_destroy_post_processor (request->postProcessor);
                 request->postProcessor = NULL;
         }
+        // Iterate get params
+        MHD_get_connection_values (con, MHD_GET_ARGUMENT_KIND, server::get_iterator,
+                             request);
 
         server::handle(request);
 
@@ -88,6 +92,14 @@ int server::post_iterator (void *cls,
 {
         httpRequest* request = (httpRequest*)cls;
         request->POST.content.insert(std::pair<std::string,std::string>(key,data));
+        return MHD_YES;
+}
+
+int server::get_iterator (void *cls, enum MHD_ValueKind kind,
+        const char *key,const char *value)
+{
+        httpRequest* request=(httpRequest*)cls;
+        request->GET.content.insert(std::pair<std::string,std::string>(key,value));
         return MHD_YES;
 }
 

@@ -65,6 +65,8 @@ class server{
                        const char *content_type,
                        const char *transfer_encoding,
                        const char *data, uint64_t off, size_t size);
+                static int get_iterator (void *cls, enum MHD_ValueKind kind,
+                        const char *key,const char *value);
 };
 
 #endif
