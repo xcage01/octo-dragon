@@ -10,6 +10,12 @@ namespace mod1
         {
                 request->reply("Simple hello in mod1",200);
         }
+
+        void notFound(httpRequest * request)
+        {
+                request->reply("Woops page not found",404);
+        }
+
         appMeta * init()
         {
                 appMeta* meta = new appMeta;
@@ -24,6 +30,7 @@ int main()
 {
         engine * d = new engine();
         d->registerMod("/b",mod1::init);
+        d->Handle4XX(mod1::notFound);
         d->run();
         return 0;
 }

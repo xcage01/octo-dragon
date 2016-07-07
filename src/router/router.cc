@@ -33,8 +33,10 @@ void router::route(httpRequest* request)
                 }
         }
         if(!found)
-                request->reply("Page not found",404);
+                router::Handle4XX(request);
 }
 
 // Defination of all static members of class
 urlController router::baseController;
+requestHandle router::Handle4XX;
+requestHandle router::Handle5XX;

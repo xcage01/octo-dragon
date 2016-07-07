@@ -24,3 +24,13 @@ void engine::registerMod(std::string baseUri,appInit appConf)
         appMeta* meta = appConf();
         router::add(baseUri,meta->urlPattern);
 }
+
+void engine::Handle4XX(requestHandle handeler)
+{
+        router::Handle4XX = handeler;
+}
+
+void engine::Handle5XX(requestHandle handeler)
+{
+        router::Handle5XX = handeler;
+}

@@ -28,7 +28,7 @@ namespace dragon{
                         ~engine();
                         //! Run the engine
                         /*!
-                        
+
                         Start running the http server as a daemon
                         */
                         void run();
@@ -42,6 +42,8 @@ namespace dragon{
                         Used to register new modules into the engine
                         */
                         void registerMod(std::string baseUri,appInit appConf);
+                        void Handle4XX(requestHandle handeler);
+                        void Handle5XX(requestHandle handeler);
                 private:
                         //! Router module
                         /*!

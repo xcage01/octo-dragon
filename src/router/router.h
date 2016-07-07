@@ -17,6 +17,8 @@ class router
                 ~router();
                 static void add(std::string,url);
                 static void route(httpRequest*);
+                static requestHandle Handle4XX;
+                static requestHandle Handle5XX;
         private:
                 static urlController baseController;
 };
