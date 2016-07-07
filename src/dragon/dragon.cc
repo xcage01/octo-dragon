@@ -24,7 +24,7 @@ void engine::run()
 
 engine::~engine()
 {
-        
+        delete this->baseConfig;
 }
 
 void engine::registerMod(std::string baseUri,appInit appConf)

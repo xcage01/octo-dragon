@@ -6,8 +6,12 @@ config::config(std::string fileName)
         if (!config_read_file(&this->cfgConf, fileName.c_str()))
         {
                 config_destroy(&this->cfgConf);
-                std::cout<< "Error while reading configuration"<<std::endl;
         }
+}
+
+config::~config()
+{
+        config_destroy(&this->cfgConf);
 }
 
 configVal* config::getInt(std::string key)
