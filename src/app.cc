@@ -8,7 +8,7 @@ namespace mod1
 
         void hello(httpRequest * request)
         {
-                std::cout<<request->HEADER.get("username")<<std::endl;
+                std::cout<<request->POST.get("username")<<std::endl;
                 request->reply("Simple hello in mod1",200);
         }
 

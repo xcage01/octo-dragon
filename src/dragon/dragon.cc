@@ -9,7 +9,8 @@ engine::engine()
         if(port->status)
         {
                 this->base = new server(port->intVal);
-                this->base->setHandle(router::route);
+                this->base->setHandle(middleware::handle);
+                middleware::push(router::route);
         }else
         {
                 std::cout << "No port found in configuration"<<std::endl;

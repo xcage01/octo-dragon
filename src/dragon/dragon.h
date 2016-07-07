@@ -4,6 +4,7 @@
 #include <config.h>
 #include <server.h>
 #include <router.h>
+#include <middleware.h>
 
 struct appMeta{
         std::string name;
