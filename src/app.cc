@@ -1,11 +1,31 @@
-#include <logger.h>
 #include <dragon.h>
 
 using namespace dragon;
 
+namespace mod1
+{
+        std::string appName = "Module 1";
+
+        void hello(httpRequest * request)
+        {
+                request->reply("Simple hello in mod1",200);
+        }
+
+        appMeta * init()
+        {
+                appMeta* meta = new appMeta;
+                meta->name = appName;
+                url pattern;
+                pattern.insert(std::pair<std::string,requestHandle>("/h",hello));
+                meta->urlPattern = pattern;
+                return meta;
+        }
+}
+
 int main()
 {
         engine * d = new engine();
+        d->registerMod("/b",mod1::init);
         // HttpServer * baseServer = new HttpServer(logging);
         // baseServer -> registerApp("/testApp",testApp::init);
         // baseServer -> notFound = testApp::notFound;

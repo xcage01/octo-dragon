@@ -6,7 +6,7 @@
 #include <cstring>
 
 struct httpResponse{
-        const char * resp = "Simply hello world";
+        const char * resp = "";
         int respCode = 200;
 };
 

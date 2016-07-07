@@ -7,11 +7,13 @@ include_directories(src/dragon)
 include_directories(src/server)
 include_directories(src/config)
 include_directories(src/router)
+include_directories(src/middleware)
 
 add_library( dragon src/dragon/dragon.cc )
 add_library( server src/server/server.cc )
 add_library( config src/config/config.cc )
 add_library( router src/router/router.cc )
+add_library( middleware src/middleware/middleware.cc )
 
 add_executable(app src/app.cc)
 
