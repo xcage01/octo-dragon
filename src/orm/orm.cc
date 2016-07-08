@@ -32,8 +32,6 @@ void models::migrate()
 void models::save()
 {
         std::cout << "Table name : " << __meta__.name << std::endl;
-        for(auto& f : m_fields)
-                f.second->save();
 }
 
 models::models()
@@ -47,29 +45,35 @@ models::~models()
 
 }
 
-void stringField::save()
-{
-        std::cout << "Save value " << m_value << std::endl;
-}
 
-void intField::save()
-{
-        std::cout << "Save value " << m_value << std::endl;
-}
-
-void pk::save()
-{
-
-}
-
-std::string stringField::__type__()
+std::string charField::__type__()
 {
         return "VARCHAR";
 }
 
-std::string intField::__type__()
+std::string integerField::__type__()
 {
         return "INT";
+}
+
+std::string bigIntegerField::__type__()
+{
+        return "BIGINT";
+}
+
+std::string tinyInt::__type__()
+{
+        return "TINYINT";
+}
+
+std::string textField::__type__()
+{
+        return "TEXT";
+}
+
+std::string longTextField::__type__()
+{
+        return "LONGTEXT";
 }
 
 sqlDriver* models::driver;

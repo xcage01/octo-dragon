@@ -16,42 +16,89 @@ class modelField
                 modelField(int size) {__size__=size;};
                 modelField() {};
                 virtual ~modelField() {};
-                virtual void save() = 0;
                 virtual std::string __type__() = 0;
                 int __size__ = -1;
 };
 
 
-class stringField : public modelField
+class charField : public modelField
 {
         public:
-                stringField(int value) : modelField(value) {};
-                stringField() : modelField() {};
-                virtual void save();
+                charField(int value) : modelField(value) {};
+                charField() : modelField() {};
                 std::string __type__();
         private:
                 int size;
-                std::string m_value;
 };
 
-class intField : public modelField
+class integerField : public modelField
 {
         public:
-                intField(int value) : modelField(value) {};
-                intField() : modelField() {};
-                virtual void save();
+                integerField(int value) : modelField(value) {};
+                integerField() : modelField() {};
                 std::string __type__();
         private:
                 int size;
-                int m_value;
 };
 
-class pk : public intField
+
+class bigIntegerField : public modelField
 {
         public:
-                pk(int value) : intField(value) {};
-                pk() : intField() {};
-                virtual void save();
+                bigIntegerField(int value) : modelField(value) {};
+                bigIntegerField() : modelField() {};
+                std::string __type__();
+        private:
+                int size;
+};
+
+class tinyInt : public modelField
+{
+        public:
+                tinyInt(int value) : modelField(value) {};
+                tinyInt() : modelField() {};
+                std::string __type__();
+        private:
+                int size;
+};
+
+class textField : public modelField
+{
+        public:
+                textField(int value) : modelField(value) {};
+                textField() : modelField() {};
+                std::string __type__();
+        private:
+                int size;
+};
+
+class longTextField : public modelField
+{
+        public:
+                longTextField(int value) : modelField(value) {};
+                longTextField() : modelField() {};
+                std::string __type__();
+        private:
+                int size;
+};
+
+class booleanField : public tinyInt
+{
+        public:
+                booleanField(int value) : tinyInt(value) {};
+                booleanField() : tinyInt() {};
+        private:
+                int size;
+};
+
+
+
+
+class pk : public bigIntegerField
+{
+        public:
+                pk(int value) : bigIntegerField(value) {};
+                pk() : bigIntegerField() {};
         private:
                 int size;
 };

@@ -23,8 +23,8 @@ namespace mod1
                         User(const std::string username,const std::string email)
                         {
                                 __meta__.name = "User";
-                                m_fields["username"] = new stringField();
-                                m_fields["email"] = new stringField(12);
+                                m_fields["username"] = new charField();
+                                m_fields["email"] = new charField(12);
                                 notNull = {"username","email"};
                                 unique = {"username"};
                         }
