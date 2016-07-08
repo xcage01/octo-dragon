@@ -20,15 +20,14 @@ namespace mod1
         class User : public models
         {
                 public:
-                        User(const std::string,const std::string);
+                        User(const std::string username,const std::string email)
+                        {
+                                __meta__.name = "User";
+                                m_fields["username"] = new stringField(username);
+                                m_fields["email"] = new stringField(email);
+                        }
                 
         };
-
-        User::User(const std::string username,const std::string email)
-        {
-                m_fields["username"] = new stringField(username);
-                m_fields["email"] = new stringField(email);
-        }
 
         appMeta * init()
         {
