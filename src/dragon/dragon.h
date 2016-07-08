@@ -59,6 +59,7 @@ namespace dragon{
                         The actual instance of the http server
                         */
                         server* base;
+                        sqlDriver * databaseDriver;
                         config * baseConfig;
         };
 };

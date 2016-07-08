@@ -15,6 +15,7 @@ engine::engine()
         {
                 std::cout << "No port found in configuration"<<std::endl;
         }
+        // this->databaseDriver = new databaseDriver();
 }
 
 void engine::run()
