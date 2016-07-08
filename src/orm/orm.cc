@@ -7,6 +7,7 @@ void models::migrate()
         {
                 dbColumn col;
                 col.__type__ = f.second->__type__();
+                col.__size__ = f.second->__size__;
                 tableColumnConfiguration[f.first] = col;
         }
         tableColumnConfiguration[this->primary].__params__.push_back("PRIMARY KEY");
@@ -25,7 +26,7 @@ void models::migrate()
                         tableColumnConfiguration[addParams.first].__params__.push_back(paramIter);
                 }
         }
-        DB::table(__meta__.name)->addColumn(tableColumnConfiguration)->create();
+        DB::table(__meta__.name)->addColumns(tableColumnConfiguration)->create();
 }
 
 void models::save()
@@ -67,11 +68,6 @@ std::string stringField::__type__()
 }
 
 std::string intField::__type__()
-{
-        return "INT";
-}
-
-std::string pk::__type__()
 {
         return "INT";
 }

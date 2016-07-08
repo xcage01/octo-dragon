@@ -13,40 +13,47 @@ struct modelMeta{
 class modelField
 {
         public:
+                modelField(int size) {__size__=size;};
+                modelField() {};
                 virtual ~modelField() {};
                 virtual void save() = 0;
                 virtual std::string __type__() = 0;
+                int __size__ = -1;
 };
 
 
 class stringField : public modelField
 {
         public:
-                stringField(const std::string& value) : m_value(value) {};
-                stringField(){};
+                stringField(int value) : modelField(value) {};
+                stringField() : modelField() {};
                 virtual void save();
-                virtual std::string __type__();
+                std::string __type__();
         private:
+                int size;
                 std::string m_value;
 };
 
 class intField : public modelField
 {
         public:
-                intField(int value) : m_value(value) {};
-                intField(){};
+                intField(int value) : modelField(value) {};
+                intField() : modelField() {};
                 virtual void save();
-                virtual std::string __type__();
+                std::string __type__();
         private:
+                int size;
                 int m_value;
 };
 
-class pk : public modelField
+class pk : public intField
 {
         public:
-                pk(){};
+                pk(int value) : intField(value) {};
+                pk() : intField() {};
                 virtual void save();
-                virtual std::string __type__();
+        private:
+                int size;
 };
 
 class models

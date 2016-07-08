@@ -13,7 +13,7 @@ using namespace std;
 
 struct dbColumn{
         std::string __type__;
-        int length;
+        int __size__;
         std::vector<std::string> __params__;
 };
 
@@ -37,7 +37,7 @@ class tab
                 tab(std::string);
                 ~tab();
 
-                tab* addColumn(std::map<std::string,dbColumn>);
+                tab* addColumns(std::map<std::string,dbColumn>);
                 void create();
         private:
                 std::string tableName;

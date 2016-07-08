@@ -56,7 +56,7 @@ tab::~tab()
 
 }
 
-tab* tab::addColumn(std::map<std::string,dbColumn> dbConf)
+tab* tab::addColumns(std::map<std::string,dbColumn> dbConf)
 {
     this->CreateColumnConf = dbConf;
     return this;
@@ -66,7 +66,7 @@ void tab::create()
 {
     for(const auto& col:this->CreateColumnConf)
     {
-        std::cout<< col.first <<"(" << col.second.__type__ << ")";
+        std::cout<< col.first <<"(" << col.second.__type__<<"|"<<col.second.__size__ << ")";
         for(const auto& iter:col.second.__params__)
         {
             std::cout << "|" << iter << "|";
