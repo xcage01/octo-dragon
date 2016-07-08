@@ -17,8 +17,23 @@ namespace mod1
                 request->reply("Woops page not found",404);
         }
 
+        class User : public models
+        {
+                public:
+                        User(const std::string,const std::string);
+                
+        };
+
+        User::User(const std::string username,const std::string email)
+        {
+                m_fields["username"] = new stringField(username);
+                m_fields["email"] = new stringField(email);
+        }
+
         appMeta * init()
         {
+                User * sudo = new User("xander","xander01@hotmail.com");
+                sudo->save();
                 appMeta* meta = new appMeta;
                 meta->name = appName;
                 url pattern;
