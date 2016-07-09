@@ -4,44 +4,54 @@ using namespace dragon;
 
 engine::engine(int argc, const char* argv[])
 {
-        this->baseConfig = new config("app.cfg");
-        configVal * port = this->baseConfig->getInt("port");
-        if(port->status)
+        //parse the positional argument
+        if(argc > 1)
         {
-                this->base = new server(port->intVal);
-                this->base->setHandle(middleware::handle);
-                middleware::push(router::route);
+                this->baseCommand = argv[1];
         }else
         {
-                std::cout << "No port found in configuration"<<std::endl;
+                std::cout << "No operation specified";
         }
-        // this->databaseDriver = new databaseDriver();
-        bool status = DB::connect("tcp://127.0.0.1:3306","testing",
-                "root","Rahul@123");
-        if (!status)
-        {
-                std::cout << "Error connecting to dbs"<<std::endl;
-        }else
-        {
-                std::cout << "Successfully connected to db"<<std::endl;
-        }
+
+        // Probably not needed now
+        // this->base = new server(5000);
+        // this->base->setHandle(middleware::handle);
+        // middleware::push(router::route);
+        // bool status = DB::connect("tcp://127.0.0.1:3306","testing",
+        //         "root","Rahul@123");
+        // if (!status)
+        // {
+        //         std::cout << "Error connecting to dbs"<<std::endl;
+        // }else
+        // {
+        //         std::cout << "Successfully connected to db"<<std::endl;
+        // }
 }
 
 void engine::run()
 {
-        getchar();
-        delete this->base;
+        for(const auto& operation : this->plugins)
+        {
+                if(operation.first == baseCommand)
+                {
+                        operation.second((void*)this);
+                }
+        }
 }
 
 engine::~engine()
 {
-        delete this->baseConfig;
 }
 
 void engine::registerMod(std::string baseUri,appInit appConf)
 {
         appMeta* meta = appConf();
         router::add(baseUri,meta->urlPattern);
+}
+
+void engine::registerPlugin(std::string cmd,pluginInit pluginHandle)
+{
+        plugins[cmd] = pluginHandle;
 }
 
 void engine::Handle4XX(requestHandle handeler)
