@@ -23,7 +23,7 @@ namespace dragon{
                         /*!
                         initializes the octo dragon http server
                         */
-                        engine();
+                        engine(int,const char **);
                         //! core engine destructor.
                         /*!
                         closes and cleans up the http server

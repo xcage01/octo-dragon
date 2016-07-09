@@ -113,7 +113,8 @@ validatedData integerField::is_valid(std::string data)
         validatedData vData;
         vData.isValid = true;
         vData.value.m_type = fieldVal::INT_PROP;
-        vData.value.int_data = std::stoi(data);
+        vData.value.int_data = 12;
+        // vData.value.int_data = std::stoi(data);
         return vData;
 }
 
@@ -122,7 +123,8 @@ validatedData bigIntegerField::is_valid(std::string data)
         validatedData vData;
         vData.isValid = true;
         vData.value.m_type = fieldVal::INT_PROP;
-        vData.value.int_data = std::stoi(data);
+        vData.value.int_data = 12;
+        // vData.value.int_data = std::stoi(data);
         return vData;
 }
 
@@ -131,7 +133,8 @@ validatedData tinyInt::is_valid(std::string data)
         validatedData vData;
         vData.isValid = true;
         vData.value.m_type = fieldVal::INT_PROP;
-        vData.value.int_data = std::stoi(data);
+        vData.value.int_data = 12;
+        // vData.value.int_data = std::stoi(data);
         return vData;
 }
 

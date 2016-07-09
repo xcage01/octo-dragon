@@ -2,7 +2,7 @@
 
 using namespace dragon;
 
-engine::engine()
+engine::engine(int argc, const char* argv[])
 {
         this->baseConfig = new config("app.cfg");
         configVal * port = this->baseConfig->getInt("port");

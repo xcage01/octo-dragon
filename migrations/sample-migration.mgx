@@ -1,0 +1,46 @@
+version = 1;
+
+# user is the table name
+user:
+{
+        add = (
+                {
+                        title   = "username";
+                        type    = "VARCHAR";
+                        length  = -1;
+                        null    = FALSE;
+                        unique  = TRUE;
+                        primary = FALSE;
+                        flags   = ();
+                },
+                {
+                        title   = "email";
+                        type    = "VARCHAR";
+                        length  = 12;
+                        null    = FALSE;
+                        unique  = FALSE;
+                        primary = FALSE;
+                        flags   = ();
+                },
+                {
+                        title   = "pk";
+                        type    = "BIGINT";
+                        length  = -1;
+                        null    = FALSE;
+                        unique  = TRUE;
+                        primary = TRUE;
+                        flags   = ("AUTO_INCREMENT");
+                },
+                {
+                        title   = "bloop";
+                        type    = "BIGINT";
+                        length  = -1;
+                        null    = FALSE;
+                        unique  = TRUE;
+                        primary = TRUE;
+                        flags   = ();
+                }
+        );
+        delete = ("bloop");
+        modify = ();
+};

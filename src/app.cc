@@ -49,9 +49,9 @@ namespace mod1
                 return meta;
         }
 }
-int main()
+int main(int argc, const char* argv[])
 {
-        engine * d = new engine();
+        engine * d = new engine(argc,argv);
         d->registerMod("/b",mod1::init);
         d->Handle4XX(mod1::notFound);
         d->run();
