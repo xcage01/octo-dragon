@@ -43,11 +43,14 @@ bool models::is_valid()
         bool validFlag = true;
         for(auto& f : m_fields)
         {
-                bool temp = f.second->is_valid();
-                if (!temp)
+                validatedData data = f.second->is_valid(field[f.first]);
+                if (!data.isValid)
                 {
                         validFlag = false;
                         break;
+                }else
+                {
+                      clean_data[f.first] = data;  
                 }
         }
         return validFlag;
@@ -95,4 +98,57 @@ std::string longTextField::__type__()
         return "LONGTEXT";
 }
 
-sqlDriver* models::driver;
+
+validatedData charField::is_valid(std::string data)
+{
+        validatedData vData;
+        vData.isValid = true;
+        vData.value.m_type = fieldVal::STRING_PROP;
+        vData.value.string_data = data;
+        return vData;
+}
+
+validatedData integerField::is_valid(std::string data)
+{
+        validatedData vData;
+        vData.isValid = true;
+        vData.value.m_type = fieldVal::INT_PROP;
+        vData.value.int_data = std::stoi(data);
+        return vData;
+}
+
+validatedData bigIntegerField::is_valid(std::string data)
+{
+        validatedData vData;
+        vData.isValid = true;
+        vData.value.m_type = fieldVal::INT_PROP;
+        vData.value.int_data = std::stoi(data);
+        return vData;
+}
+
+validatedData tinyInt::is_valid(std::string data)
+{
+        validatedData vData;
+        vData.isValid = true;
+        vData.value.m_type = fieldVal::INT_PROP;
+        vData.value.int_data = std::stoi(data);
+        return vData;
+}
+
+validatedData textField::is_valid(std::string data)
+{
+        validatedData vData;
+        vData.isValid = true;
+        vData.value.m_type = fieldVal::STRING_PROP;
+        vData.value.string_data = data;
+        return vData;
+}
+
+validatedData longTextField::is_valid(std::string data)
+{
+        validatedData vData;
+        vData.isValid = true;
+        vData.value.m_type = fieldVal::STRING_PROP;
+        vData.value.string_data = data;
+        return vData;
+}

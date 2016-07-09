@@ -11,8 +11,16 @@ struct modelMeta{
 };
 
 struct fieldVal{
-        std::string data;
+        int int_data;
+        bool bool_data;
+        std::string string_data;
+
         enum {NONE_PROP,INT_PROP,BOOL_PROP,STRING_PROP} m_type;
+};
+
+struct validatedData{
+        bool isValid;
+        fieldVal value;
 };
 
 class modelField
@@ -24,7 +32,7 @@ class modelField
                 virtual std::string __type__() = 0;
                 virtual void set(std::string) = 0;
                 virtual void set(int) = 0;
-                virtual bool is_valid() = 0;
+                virtual validatedData is_valid(std::string data) = 0;
                 int __size__ = -1;
 };
 
@@ -36,7 +44,7 @@ class charField : public modelField
                 charField() : modelField() {};
                 virtual void set(std::string val) {__value__ = val;};
                 virtual void set(int) {};
-                virtual bool is_valid() {return true;};
+                virtual validatedData is_valid(std::string data);
                 std::string __type__();
         private:
                 int size;
@@ -50,7 +58,7 @@ class integerField : public modelField
                 integerField() : modelField() {};
                 virtual void set(std::string) {};
                 virtual void set(int val) {__value__ = val;};
-                virtual bool is_valid() {return true;};
+                virtual validatedData is_valid(std::string data);
                 std::string __type__();
         private:
                 int size;
@@ -65,7 +73,7 @@ class bigIntegerField : public modelField
                 bigIntegerField() : modelField() {};
                 virtual void set(std::string) {};
                 virtual void set(int val) {__value__ = val;};
-                virtual bool is_valid() {return true;};
+                virtual validatedData is_valid(std::string data);
                 std::string __type__();
         private:
                 int size;
@@ -79,7 +87,7 @@ class tinyInt : public modelField
                 tinyInt() : modelField() {};
                 virtual void set(std::string) {};
                 virtual void set(int val) {__value__ = val;};
-                virtual bool is_valid() {return true;};
+                virtual validatedData is_valid(std::string data);
                 std::string __type__();
         private:
                 int size;
@@ -92,7 +100,7 @@ class textField : public modelField
                 textField(int value) : modelField(value) {};
                 textField() : modelField() {};
                 virtual void set(std::string val) {__value__ = val;};
-                virtual bool is_valid() {return true;};
+                virtual validatedData is_valid(std::string data);
                 virtual void set(int) {};
                 std::string __type__();
         private:
@@ -107,7 +115,7 @@ class longTextField : public modelField
                 longTextField() : modelField() {};
                 virtual void set(std::string val) {__value__ = val;};
                 virtual void set(int) {};
-                virtual bool is_valid() {return true;};
+                virtual validatedData is_valid(std::string data);
                 std::string __type__();
         private:
                 int size;
@@ -144,10 +152,10 @@ class models
                 virtual void migrate();
                 virtual void save();
                 virtual bool is_valid();
-                static sqlDriver* driver;
         protected:
                 std::map<std::string, modelField*> m_fields;
                 std::map<std::string, std::string> field;
+                std::map<std::string, validatedData> clean_data;
                 std::string primary = "pk";
                 std::list<std::string> notNull;
                 std::list<std::string> unique;
