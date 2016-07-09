@@ -59,6 +59,8 @@ namespace dragon{
                         server* base;
                         std::string baseCommand;
                         std::map<std::string,pluginInit> plugins;
+                        std::string migrationsFolder = "./migrations/";
+                        std::map<std::string,appInit> modsList;
         };
 };
 

@@ -78,7 +78,8 @@ void migrate(void* dragon)
 
 void makeMigrations(void* dragon)
 {
-        std::cout << "making migrations"<<std::endl;
+        engine* core = (engine*) dragon;
+        
 }
 
 int main(int argc, const char* argv[])

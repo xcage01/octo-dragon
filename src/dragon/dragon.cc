@@ -47,6 +47,7 @@ void engine::registerMod(std::string baseUri,appInit appConf)
 {
         appMeta* meta = appConf();
         router::add(baseUri,meta->urlPattern);
+        this->modsList[baseUri] = appConf;
 }
 
 void engine::registerPlugin(std::string cmd,pluginInit pluginHandle)
