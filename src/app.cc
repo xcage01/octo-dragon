@@ -46,6 +46,7 @@ namespace mod1
                 url pattern;
                 pattern.insert(std::pair<std::string,requestHandle>("/h",hello));
                 meta->urlPattern = pattern;
+                meta->model_list.push_back(new User()); 
                 return meta;
         }
 }
@@ -79,7 +80,15 @@ void migrate(void* dragon)
 void makeMigrations(void* dragon)
 {
         engine* core = (engine*) dragon;
-        
+        for(const auto& mods:core->modsList)
+        {
+                std::cout << "Looking for models in module : "<<mods.second->name<<std::endl;
+                for(const auto& model:mods.second->model_list)
+                {
+                        std::cout << "Making migrations for table : "<<model->__meta__.name<<std::endl;
+                } 
+        }
+
 }
 
 int main(int argc, const char* argv[])

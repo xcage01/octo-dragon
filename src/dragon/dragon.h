@@ -11,6 +11,7 @@
 struct appMeta{
         std::string name;
         url urlPattern;
+        std::list<models*> model_list;
 };
 
 typedef appMeta*(*appInit)();
@@ -51,6 +52,7 @@ namespace dragon{
                         void registerPlugin(std::string,pluginInit);
                         void Handle4XX(requestHandle handeler);
                         void Handle5XX(requestHandle handeler);
+                        std::map<std::string,appMeta*> modsList;
                 private:
                         //! base server
                         /*!
@@ -60,7 +62,6 @@ namespace dragon{
                         std::string baseCommand;
                         std::map<std::string,pluginInit> plugins;
                         std::string migrationsFolder = "./migrations/";
-                        std::map<std::string,appInit> modsList;
         };
 };
 

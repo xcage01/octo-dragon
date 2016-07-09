@@ -152,6 +152,7 @@ class models
                 virtual void migrate();
                 virtual void save();
                 virtual bool is_valid();
+                modelMeta __meta__;
         protected:
                 std::map<std::string, modelField*> m_fields;
                 std::map<std::string, std::string> field;
@@ -160,7 +161,6 @@ class models
                 std::list<std::string> notNull;
                 std::list<std::string> unique;
                 std::map<std::string,std::list<std::string>> m_params;
-                modelMeta __meta__;
 };
 
 #endif
