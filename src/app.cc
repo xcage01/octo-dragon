@@ -20,30 +20,27 @@ namespace mod1
         class User : public models
         {
                 public:
-                        User(const std::string username,const std::string email)
+                        User()
                         {
                                 __meta__.name = "User";
                                 m_fields["username"] = new charField();
                                 m_fields["email"] = new charField(12);
                                 notNull = {"username","email"};
                                 unique = {"username"};
-                        }
+                        };
                 
         };
 
         appMeta * init()
         {
-                bool status = DB::connect("tcp://127.0.0.1:3306","testing",
-                        "root","Rahul@123");
-                if (!status)
-                {
-                        std::cout << "Error connecting to dbs"<<std::endl;
-                }else
-                {
-                        std::cout << "Successfully connected to db"<<std::endl;
-                }
-                User* sudo = new User("xander","xander01@hotmail.com");
-                sudo->migrate();
+                std::map<std::string,std::string> userData;
+                userData["username"] = "xander";
+                userData["email"] = "xander01@hotmail.com";
+                User* user = new User();
+                user->data(userData);
+                if (user->is_valid())
+                        user->save();
+                user->migrate();
                 appMeta* meta = new appMeta;
                 meta->name = appName;
                 url pattern;
@@ -54,8 +51,6 @@ namespace mod1
 }
 int main()
 {
-        std::list<std::string> a;
-        a = {"a","a"};
         engine * d = new engine();
         d->registerMod("/b",mod1::init);
         d->Handle4XX(mod1::notFound);

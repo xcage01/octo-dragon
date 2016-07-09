@@ -16,6 +16,15 @@ engine::engine()
                 std::cout << "No port found in configuration"<<std::endl;
         }
         // this->databaseDriver = new databaseDriver();
+        bool status = DB::connect("tcp://127.0.0.1:3306","testing",
+                "root","Rahul@123");
+        if (!status)
+        {
+                std::cout << "Error connecting to dbs"<<std::endl;
+        }else
+        {
+                std::cout << "Successfully connected to db"<<std::endl;
+        }
 }
 
 void engine::run()

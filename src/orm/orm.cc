@@ -32,6 +32,25 @@ void models::migrate()
 void models::save()
 {
         std::cout << "Table name : " << __meta__.name << std::endl;
+        for(const auto & data:field)
+        {
+                std::cout<<data.first<<":"<<data.second<<std::endl;
+        }
+}
+
+bool models::is_valid()
+{
+        bool validFlag = true;
+        for(auto& f : m_fields)
+        {
+                bool temp = f.second->is_valid();
+                if (!temp)
+                {
+                        validFlag = false;
+                        break;
+                }
+        }
+        return validFlag;
 }
 
 models::models()
