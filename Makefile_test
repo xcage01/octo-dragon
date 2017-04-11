@@ -1,0 +1,2 @@
+install:
+	g++ src/dragon/dragon.cc src/server/server.cc src/config/config.cc src/router/router.cc src/orm/orm.cc src/mysql/mysql.cc src/middleware/middleware.cc src/app.cc -I src/dragon/ -I src/server/ -I src/config/ -I src/router/ -I src/orm/ -I src/mysql/ -I src/middleware/ -lmicrohttpd -lconfig -lmysqlcppconn -I src/boost/ -std=c++11 -o app

@@ -160,7 +160,7 @@ class models
                 std::string primary = "pk";
                 std::list<std::string> notNull;
                 std::list<std::string> unique;
-                std::map<std::string,std::list<std::string>> m_params;
+                std::map<std::string,std::list<std::string> > m_params;
 };
 
 #endif

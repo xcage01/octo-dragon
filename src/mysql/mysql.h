@@ -8,6 +8,7 @@
 #include <cppconn/prepared_statement.h>
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
