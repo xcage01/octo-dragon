@@ -7,3 +7,5 @@ Doxyfile
 docs
 app
 *.a
+*.sw[po]
+*.DS_Store
