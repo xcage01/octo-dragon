@@ -6,8 +6,9 @@
 
 INITIALIZE_EASYLOGGINGPP
 
-void logging(std::string message) {
-   LOG(INFO) << message;
+void logging(std::string message)
+{
+  LOG(INFO) << message;
 }
 
 #endif

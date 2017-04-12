@@ -7,3 +7,4 @@ Doxyfile
 docs
 app
 *.a
+*.sw[po]
