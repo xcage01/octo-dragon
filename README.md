@@ -21,3 +21,11 @@ Or
 ```
 make -f Makefile_test
 ```
+
+## Run
+You should add username and password about your database at runServer in src/app.cc
+
+```
+mysql.server start
+./app server
+```

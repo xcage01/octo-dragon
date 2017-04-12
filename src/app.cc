@@ -61,7 +61,7 @@ void runServer(void *dragon)
   middleware::push(router::route);
   std::cout << "Connecting to database server ..." << std::endl;
   bool status = DB::connect("tcp://127.0.0.1:3306", "testing",
-                            "root", "Rahul@123");
+                            "username", "password");
   if (!status)
   {
     std::cout << "Unable to connect to database server";
